@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    # Default: in-memory H2 so the app runs with zero setup.
+    # With docker-compose, DB_URL points to PostgreSQL.
+    url: ${DB_URL:jdbc:h2:mem:jobtracker;DB_CLOSE_DELAY=-1}
+    username: ${DB_USER:sa}
+    password: ${DB_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+app:
+  jwt:
+    # Override JWT_SECRET in any real environment (must be at least 32 characters).
+    secret: ${JWT_SECRET:dev-only-secret-change-me-dev-only-secret-change-me}
+    expiration-ms: 86400000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
